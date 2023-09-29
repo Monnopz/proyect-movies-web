@@ -25,7 +25,20 @@ export const getActionMovieDetails = async ({ commit }, idMovie) => {
         const respMovieDetails = await tmdbAPI.get(`/movie/${idMovie}`)
         const respMoveCast = await tmdbAPI.get(`/movie/${idMovie}/credits`)
 
-        respMovieDetails.data.cast = respMoveCast.data.cast
+        respMovieDetails.data.cast = respMoveCast.data.cast.map( profile => {
+            if( !profile.profile_path ) {
+                if( profile.gender === 1 ) { // Female
+                    profile.profile_path = 'https://res.cloudinary.com/flutter-app-camera/image/upload/v1695945456/female-profile_rpjnnn.png'
+                }
+                else if( profile.gender === 2 ) { // Male
+                    profile.profile_path = 'https://res.cloudinary.com/flutter-app-camera/image/upload/v1695945456/male-profile_izzjkz.png'
+                }
+            }
+            else {
+                profile.profile_path = `https://image.tmdb.org/t/p/original${profile.profile_path}`
+            }
+            return profile
+        })
 
         commit('mutationMovieDetails', respMovieDetails.data) 
         commit('mutationIsPageLoadingStatus', false) 

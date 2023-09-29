@@ -1,15 +1,15 @@
 <template>
     <v-app-bar color="#273043" elevation="0">
-        <template v-if="mdAndUp" v-slot:prepend>
+        <!-- <template v-if="mdAndUp" v-slot:prepend>
             <v-app-bar-nav-icon color="#eff6ee" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        </template>
+        </template> -->
         <v-app-bar-title class="appbarTitleColor"><v-icon icon="mdi-movie" class="mr-3 iconMovieColor"></v-icon><strong>Big Movie DB</strong></v-app-bar-title>
         <!-- <template v-if="(!mdAndUp && isHomeView)" v-slot:extension>
             <TabsSelectMovieCategory />
         </template> -->
-        <template v-if="!mdAndUp" v-slot:extension>
+        <!-- <template v-if="!mdAndUp" v-slot:extension>
             <TabsSelectMovieCategory :arrayGenresCategories="getterGenresCategories" />
-        </template>
+        </template> -->
     </v-app-bar>
     <v-navigation-drawer
         v-model="drawer"

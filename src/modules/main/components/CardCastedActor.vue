@@ -13,8 +13,8 @@
         <v-img
           cover
          :width="mdAndUp ? 180 : 220"
-          :src="`https://image.tmdb.org/t/p/original${castObjectActor.profile_path}`"
-          :lazy-src="`https://image.tmdb.org/t/p/original${castObjectActor.profile_path}`"
+          :src="castObjectActor.profile_path"
+          :lazy-src="castObjectActor.profile_path"
           aspect-ratio="1"
           class="bg-grey-lighten-2"
           :alt="castObjectActor.name"

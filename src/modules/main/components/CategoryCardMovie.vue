@@ -1,9 +1,9 @@
 <template>
     <v-container fluid>
-        <v-sheet color="#eff6ee" class="mx-8">
-          <v-row v-if="mdAndUp" no-gutters align="center">
+        <v-sheet color="#fff" class="mx-0">
+          <!-- <v-row v-if="mdAndUp" no-gutters align="center">
             <slot name="categorytitle"></slot>
-          </v-row>
+          </v-row> -->
             <v-row align="center" justify="space-between">
               <v-col v-for="movie in arrayMovies" :key="movie.id" cols="12" xxl="2" xl="2" lg="3" md="4" sm="6">
                 <v-hover>
@@ -21,17 +21,16 @@
                       <template v-slot:loader="{ isActive }">
                         <v-progress-linear
                           :active="isActive"
-                          color="#eff6ee"
+                          color="#fff"
                           :height="4"
                           indeterminate
                         ></v-progress-linear>
                       </template>
                       <v-img
-                        cover
-                       :width="mdAndUp ? 230 : 270"
-                        :src="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`"
-                        :lazy-src="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`"
-                        aspect-ratio="1"
+                       :max-height="mdAndUp ? 230 : 270"
+                        :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
+                        :lazy-src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
+                        aspect-ratio="16/9"
                         class="bg-grey-lighten-2"
                         :alt="movie.title"
                       >
@@ -106,7 +105,7 @@ export default {
         default: []
       }
     },
-    setup(){
+    setup(props){
 
         const router = useRouter()
 
@@ -114,6 +113,7 @@ export default {
 
         const { getActionMovieDetails, setMutationIsPageLoadingStatus, getterIsPageLoading } = useMain ()
 
+        console.log(props.arrayMovies);
         //Metodos
         const moveToDetailsMovie = async (idMovie) => {
           setMutationIsPageLoadingStatus(true)

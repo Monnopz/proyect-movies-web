@@ -78,9 +78,9 @@ export default {
 
 <style scoped>
 .appbarTitleColor {
-    color: #eff6ee;
+    color: #fff;
 }
 .iconMovieColor {
-    color: #eff6ee;
+    color: #fff;
 }
 </style>

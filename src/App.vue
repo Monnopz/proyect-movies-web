@@ -12,6 +12,9 @@ export default {
 
 <style scoped>
 .backgroundColor {
-  background-color: #eff6ee;
+  background-color: #fff;
+}
+.body, .v-application{
+    font-family: 'Wix Madefor Display', sans-serif;
 }
 </style>

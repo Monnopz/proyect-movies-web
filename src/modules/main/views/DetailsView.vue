@@ -1,16 +1,16 @@
 <template>
     <v-main>
         <v-container fluid>
-            <v-sheet color="#eff6ee" class="mx-8">
+            <v-sheet color="#fff" class="mx-8">
                 <v-row align="center" justify="space-between" class="mt-xxl-4 mt-xl-4 mt-lg-4">
                     <v-col cols="12" xxl="2" xl="2" lg="2" md="12" sm="12">
                         <v-img
                             cover
-                           :width="mdAndUp ? 230 : 270"
+                            :width="mdAndUp ? 230 : 270"
                             :src="`https://image.tmdb.org/t/p/original${getterMovieDetails.poster_path}`"
                             :lazy-src="`https://image.tmdb.org/t/p/original${getterMovieDetails.poster_path}`"
                             aspect-ratio="1"
-                            class="bg-grey-lighten-2 mx-auto"
+                            class="bg-grey-lighten-2 mx-auto rounded-img"
                             :alt="getterMovieDetails.title"
                         >
                             <template v-slot:placeholder>
@@ -115,5 +115,8 @@ export default {
 }
 .window-height {
     height: 285px !important;
+}
+.rounded-img {
+    border-radius: 9px !important;
 }
 </style>

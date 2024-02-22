@@ -86,8 +86,6 @@ export default {
 
         const { getActionMovieDetails, getterMovieDetails } = useMain()
 
-        console.log(getterMovieDetails);
-
         onMounted(() => {
             if(Object.keys(getterMovieDetails.value).length === 0) {
                 getActionMovieDetails(route.params.idMovie)

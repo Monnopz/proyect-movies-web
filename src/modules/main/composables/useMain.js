@@ -5,8 +5,8 @@ const useMain = () => {
 
     const store = useStore()
 
-    const getActionBrandNewMovies = async () => {
-        const resp = await store.dispatch('mainModule/getActionBrandNewMovies')
+    const getActionMovies = async () => {
+        const resp = await store.dispatch('mainModule/getActionMovies')
         return resp
     }
 
@@ -26,12 +26,12 @@ const useMain = () => {
 
     return {
 
-        getActionBrandNewMovies,
+        getActionMovies,
         getActionMovieDetails,
         getGenresCategories,
         setMutationIsPageLoadingStatus,
 
-        getterBrandNewMovies: computed(() => store.getters['mainModule/getterBrandNewMovies']), //Los getters son un objeto, por eso las llaves getters[]
+        getterMovies: computed(() => store.getters['mainModule/getterMovies']), //Los getters son un objeto, por eso las llaves getters[]
         getterIsPageLoading: computed(() => store.getters['mainModule/getterIsPageLoading']), //Los getters son un objeto, por eso las llaves getters[]
         getterMovieDetails: computed(() => store.getters['mainModule/getterMovieDetails']), //Los getters son un objeto, por eso las llaves getters[]
         getterGenresCategories: computed(() => store.getters['mainModule/getterGenresCategories']), //Los getters son un objeto, por eso las llaves getters[]

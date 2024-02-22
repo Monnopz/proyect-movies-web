@@ -1,6 +1,6 @@
-export const getterBrandNewMovies = (state) => {
+export const getterMovies = (state) => {
 
-    return state.arrayBrandNewMovies
+    return state.arrayMovies
 
 }
 

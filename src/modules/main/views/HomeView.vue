@@ -1,6 +1,6 @@
 <template>
   <v-main>
-      <CategoryCardMovie :arrayMovies="getterBrandNewMovies">
+      <CategoryCardMovie :arrayMovies="getterMovies.results">
         <template v-slot:categorytitle>
           <v-alert density="comfortable" icon="mdi-video-plus-outline" prominent border="start" border-color="#273043" variant="tonal" color="#273043">
             <template v-slot:title>
@@ -9,6 +9,7 @@
           </v-alert>
         </template>
       </CategoryCardMovie>
+      <HomeViewPagination />
   </v-main>
 </template>
 
@@ -23,25 +24,25 @@ export default {
     name: 'HomeView',
     components: {
         CategoryCardMovie: defineAsyncComponent(() => import('@/modules/main/components/CategoryCardMovie.vue')), //Cargas pequeñas en cache
+        HomeViewPagination: defineAsyncComponent(() => import('@/modules/main/components/HomeViewPagination.vue')) //Cargas pequeñas en cache
     },
     setup(){
 
       const { xlAndUp } = useDisplay()
 
-      const { getActionBrandNewMovies, setMutationIsPageLoadingStatus, getterBrandNewMovies, getterSelectedCategory } = useMain()
+      const { getActionMovies, setMutationIsPageLoadingStatus, getterMovies, getterSelectedCategory } = useMain()
 
       onMounted(() => {
-
-        if(getterBrandNewMovies.value.length === 0) {
+        if(Object.keys(getterMovies.value).length === 0) {
           setMutationIsPageLoadingStatus(true)
-          getActionBrandNewMovies()
+          getActionMovies()
         }
 
       })
 
       return {
 
-        getterBrandNewMovies,
+        getterMovies,
         getterSelectedCategory,
         // Breakpoints
         xlAndUp

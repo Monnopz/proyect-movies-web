@@ -1,19 +1,32 @@
 import tmdbAPI from "@/api/tmdbAPI";
 
-export const getActionBrandNewMovies = async ({ commit }) => {
+const getMoviesByPage = async( page = 1 ) => {
+    try {
+        const { data } = await tmdbAPI.get('/movie/now_playing', {
+            params: {
+                page
+            }
+        })
+        
+        return data;
+    } catch (error) {
+        throw { ok: false, message: 'Ha ocurrido un error' }
+    }
+}
+
+export const getActionMovies = async ({ commit }) => {
 
     try {
 
-        const { data } = await tmdbAPI.get('/movie/now_playing')
+        const data = await getMoviesByPage(); // Por default la pagina 1
 
-        commit('mutationBrandNewMovies', data.results) 
+        commit('mutationMovies', data) 
         commit('mutationIsPageLoadingStatus', false) 
 
         return { ok: true, message: 'Peliculas obtenidas con exito' }
 
     } catch (error) {
-        
-        return { ok: false, message: 'Ha ocurrido un error' }
+        return error
 
     }
 }

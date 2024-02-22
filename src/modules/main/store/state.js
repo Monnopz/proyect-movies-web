@@ -1,6 +1,6 @@
 export default () => ({
 
-    arrayBrandNewMovies: [],
+    arrayMovies: {},
     movieDetails: {},
     isPageLoading: true,
     arrayGenresCategories: [

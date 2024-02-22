@@ -26,10 +26,12 @@
                           indeterminate
                         ></v-progress-linear>
                       </template>
+                      <!-- :src="require('@/assets/No-Image-Placeholder.svg')"
+                      :lazy-src="require('@/assets/No-Image-Placeholder.svg')" -->
                       <v-img
-                       :max-height="mdAndUp ? 230 : 270"
+                        :max-height="mdAndUp ? 230 : 270"
                         :src="movie.poster_path"
-                        :lazy-src="movie.poster_path"
+                        :lazy-src="require('@/assets/No-Image-Placeholder.svg')"
                         aspect-ratio="16/9"
                         class="bg-grey-lighten-2"
                         :alt="movie.title"

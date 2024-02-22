@@ -6,9 +6,9 @@
                     <v-col cols="12" xxl="2" xl="2" lg="2" md="12" sm="12">
                         <v-img
                             cover
-                            :width="mdAndUp ? 230 : 270"
+                            :max-width="mdAndUp ? 230 : 270"
                             :src="getterMovieDetails.poster_path"
-                            :lazy-src="getterMovieDetails.poster_path"
+                            :lazy-src="require('@/assets/No-Image-Placeholder.svg')"
                             aspect-ratio="1"
                             class="bg-grey-lighten-2 mx-auto rounded-img"
                             :alt="getterMovieDetails.title"

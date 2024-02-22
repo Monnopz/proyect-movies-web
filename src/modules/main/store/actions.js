@@ -8,6 +8,14 @@ const getMoviesByPage = async( page = 1 ) => {
             }
         })
 
+        // const { data } = await tmdbAPI.get('/discover/movie', {
+        //     params: {
+        //         include_adult: false,
+        //         include_video: false,
+        //         page
+        //     }
+        // })
+
         data.results = data.results.map( movie => {
             if( !movie.poster_path ) {
                 movie.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
@@ -43,8 +51,9 @@ export const getActionMovies = async ({ commit }, pageNumber) => {
 
 export const getActionMovieDetails = async ({ commit }, idMovie) => {
 
-    //TODO: Cambiar la forma en como se accede a los datos para no mandar el data.results
+    //TODO: Implementar VueQuery
     //TODO: Conservar el numero de pagina en el store
+    //TODO: Arreglar la alineacion y el espaciado de texto
 
     try {
 

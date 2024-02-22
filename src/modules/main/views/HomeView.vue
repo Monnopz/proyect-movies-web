@@ -1,13 +1,13 @@
 <template>
   <v-main>
       <CategoryCardMovie :arrayMovies="getterMovies.results">
-        <template v-slot:categorytitle>
+        <!-- <template v-slot:categorytitle>
           <v-alert density="comfortable" icon="mdi-video-plus-outline" prominent border="start" border-color="#273043" variant="tonal" color="#273043">
             <template v-slot:title>
               <span class="text-uppercase" :class="xlAndUp ? 'textTitleCardSizeXlAndUp' : 'textTitleCardSize'">{{getterSelectedCategory}}</span>
             </template>
           </v-alert>
-        </template>
+        </template> -->
       </CategoryCardMovie>
       <HomeViewPagination />
   </v-main>

@@ -2,6 +2,7 @@
     <div class="text-center mb-3">
         <v-pagination
           show-first-last-page
+          :disabled="getterIsPageLoading"
           v-model="localPage"
           :length="getterMovies.total_pages"
           :total-visible="5"
@@ -17,9 +18,10 @@ export default {
     name: 'HomeViewPagination',
     setup(){
 
-      const { getActionMovies, getterMovies, setMutationIsPageLoadingStatus, getterPaginationPage } = useMain()
+      const { getActionMovies, setMutationIsPageLoadingStatus, getterMovies, getterIsPageLoading, getterPaginationPage  } = useMain()
 
-      const localPage = ref(1);
+      const localPage = ref(getterPaginationPage.value); // Saca el valor de pagina del state
+    
 
       // Watch
       // Vigila cada cambio en la pagina para hacer la petición de la nueva pagina de peliculas
@@ -31,7 +33,8 @@ export default {
       return {
         localPage,
 
-        getterMovies
+        getterMovies,
+        getterIsPageLoading
       }
 
     }

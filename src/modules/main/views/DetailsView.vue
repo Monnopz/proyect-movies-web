@@ -7,8 +7,8 @@
                         <v-img
                             cover
                             :width="mdAndUp ? 230 : 270"
-                            :src="`https://image.tmdb.org/t/p/original${getterMovieDetails.poster_path}`"
-                            :lazy-src="`https://image.tmdb.org/t/p/original${getterMovieDetails.poster_path}`"
+                            :src="getterMovieDetails.poster_path"
+                            :lazy-src="getterMovieDetails.poster_path"
                             aspect-ratio="1"
                             class="bg-grey-lighten-2 mx-auto rounded-img"
                             :alt="getterMovieDetails.title"

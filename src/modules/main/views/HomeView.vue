@@ -35,7 +35,7 @@ export default {
       onMounted(() => {
         if(Object.keys(getterMovies.value).length === 0) {
           setMutationIsPageLoadingStatus(true)
-          getActionMovies()
+          getActionMovies(1)
         }
 
       })

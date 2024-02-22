@@ -2,23 +2,36 @@
     <div class="text-center mb-3">
         <v-pagination
           show-first-last-page
-          v-model="page"
-          :length="20"
+          v-model="localPage"
+          :length="getterMovies.total_pages"
           :total-visible="5"
         ></v-pagination>
     </div>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import useMain from '@/modules/main/composables/useMain'
+
 export default {
     name: 'HomeViewPagination',
     setup(){
 
-      const page = ref(1);
+      const { getActionMovies, getterMovies, setMutationIsPageLoadingStatus, getterPaginationPage } = useMain()
+
+      const localPage = ref(1);
+
+      // Watch
+      // Vigila cada cambio en la pagina para hacer la petición de la nueva pagina de peliculas
+      watch(() => localPage.value, (val) => {
+        setMutationIsPageLoadingStatus(true)
+        getActionMovies( val ) // Le mando el numero de pagina (val)
+      })
 
       return {
-        page
+        localPage,
+
+        getterMovies
       }
 
     }

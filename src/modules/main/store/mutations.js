@@ -21,3 +21,9 @@ export const mutationIsPageLoadingStatus = (state, status) => {
     state.isPageLoading = status
 
 }
+
+export const mutationPaginationPage = (state, pageNumber) => {
+
+    state.paginationPage = pageNumber
+
+}

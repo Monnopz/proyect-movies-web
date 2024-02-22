@@ -27,3 +27,9 @@ export const getterSelectedCategory= (state) => {
     return state.selectedCategory
 
 }
+
+export const getterPaginationPage= (state) => {
+
+    return state.paginationPage
+
+}

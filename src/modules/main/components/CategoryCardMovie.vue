@@ -28,8 +28,8 @@
                       </template>
                       <v-img
                        :max-height="mdAndUp ? 230 : 270"
-                        :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
-                        :lazy-src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
+                        :src="movie.poster_path"
+                        :lazy-src="movie.poster_path"
                         aspect-ratio="16/9"
                         class="bg-grey-lighten-2"
                         :alt="movie.title"

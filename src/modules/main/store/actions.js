@@ -7,6 +7,16 @@ const getMoviesByPage = async( page = 1 ) => {
                 page
             }
         })
+
+        data.results = data.results.map( movie => {
+            if( !movie.poster_path ) {
+                movie.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
+            }
+            else {
+                movie.poster_path = `https://image.tmdb.org/t/p/original${movie.poster_path}`
+            }
+            return movie
+        })
         
         return data;
     } catch (error) {
@@ -14,13 +24,13 @@ const getMoviesByPage = async( page = 1 ) => {
     }
 }
 
-export const getActionMovies = async ({ commit }) => {
+export const getActionMovies = async ({ commit }, pageNumber) => {
 
     try {
 
-        const data = await getMoviesByPage(); // Por default la pagina 1
-
-        commit('mutationMovies', data) 
+        const data = await getMoviesByPage( pageNumber ); // Por default la pagina 1
+        commit('mutationMovies', data)
+        commit('mutationPaginationPage', pageNumber) 
         commit('mutationIsPageLoadingStatus', false) 
 
         return { ok: true, message: 'Peliculas obtenidas con exito' }
@@ -33,10 +43,20 @@ export const getActionMovies = async ({ commit }) => {
 
 export const getActionMovieDetails = async ({ commit }, idMovie) => {
 
+    //TODO: Cambiar la forma en como se accede a los datos para no mandar el data.results
+    //TODO: Conservar el numero de pagina en el store
+
     try {
 
         const respMovieDetails = await tmdbAPI.get(`/movie/${idMovie}`)
         const respMoveCast = await tmdbAPI.get(`/movie/${idMovie}/credits`)
+
+        if( !respMovieDetails.data.poster_path ) {
+            respMovieDetails.data.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
+        }
+        else {
+            respMovieDetails.data.poster_path = `https://image.tmdb.org/t/p/original${respMovieDetails.data.poster_path}`
+        }
 
         respMovieDetails.data.cast = respMoveCast.data.cast.map( profile => {
             // if( !profile.profile_path ) {
@@ -55,6 +75,12 @@ export const getActionMovieDetails = async ({ commit }, idMovie) => {
             }
             else {
                 profile.profile_path = `https://image.tmdb.org/t/p/original${profile.profile_path}`
+            }
+            if( !profile.poster_path ) {
+                profile.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
+            }
+            else {
+                profile.poster_path = `https://image.tmdb.org/t/p/original${profile.poster_path}`
             }
             return profile
         })

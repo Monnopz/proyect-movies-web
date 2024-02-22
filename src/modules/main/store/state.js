@@ -9,6 +9,7 @@ export default () => ({
             name: 'En Cartelera'
         }
     ],
-    selectedCategory: 'En Cartelera'
+    selectedCategory: 'En Cartelera',
+    paginationPage: 1
 
 })

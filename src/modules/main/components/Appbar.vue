@@ -3,7 +3,7 @@
         <!-- <template v-if="mdAndUp" v-slot:prepend>
             <v-app-bar-nav-icon color="#eff6ee" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </template> -->
-        <v-app-bar-title class="appbarTitleColor"><v-icon icon="mdi-movie" class="mr-3 iconMovieColor"></v-icon><strong>Big Movie DB</strong></v-app-bar-title>
+        <v-app-bar-title class="appbarTitleColor"><v-btn @click="goToHomeView" :icon="$route.name !== 'home-view' ? 'mdi-arrow-left' : 'mdi-movie'" class="iconMovieColor mb-1" variant="plain"></v-btn><strong>Big Movie DB</strong></v-app-bar-title>
         <!-- <template v-if="(!mdAndUp && isHomeView)" v-slot:extension>
             <TabsSelectMovieCategory />
         </template> -->
@@ -28,6 +28,8 @@
 
 <script>
 import { defineAsyncComponent, ref, watch, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
 import useMain from '@/modules/main/composables/useMain'
 
 import { useDisplay } from 'vuetify'
@@ -49,6 +51,8 @@ export default {
 
         const { mdAndUp } = useDisplay()
 
+        const router = useRouter();
+
         const drawer = ref(false)
         const group = ref(null)
 
@@ -65,6 +69,12 @@ export default {
             getterGenresCategories,
 
             getGenresCategories,
+
+            goToHomeView: () => {
+                if(router.currentRoute.value.name !== 'home-view') {
+                    router.replace({ name: 'home-view' });
+                }
+            },
 
 
             // Breakpoints

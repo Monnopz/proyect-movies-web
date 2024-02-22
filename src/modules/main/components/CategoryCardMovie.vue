@@ -112,8 +112,7 @@ export default {
         const { mdAndUp, xlAndUp } = useDisplay()
 
         const { getActionMovieDetails, setMutationIsPageLoadingStatus, getterIsPageLoading } = useMain ()
-
-        console.log(props.arrayMovies);
+        
         //Metodos
         const moveToDetailsMovie = async (idMovie) => {
           setMutationIsPageLoadingStatus(true)

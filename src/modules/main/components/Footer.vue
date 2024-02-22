@@ -1,5 +1,5 @@
 <template>
-  <v-footer app color="#273043">
+  <v-footer color="#273043">
     <v-row align="center" justify="center" no-gutters>
       <v-col class="text-center footerTitleColor" cols="12" xxl="11" xl="10" lg="10" md="9" sm="7">
         <strong>[ Monnopz ]</strong> — {{ pageDate }}

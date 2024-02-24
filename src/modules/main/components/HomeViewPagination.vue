@@ -1,6 +1,11 @@
 <template>
     <div class="text-center mb-3">
         <v-pagination
+          @first="changePage"
+          @last="changePage"
+          @next="changePage"
+          @prev="changePage"
+          @update:model-value="changePage"
           show-first-last-page
           :disabled="getterIsPageLoading"
           v-model="localPage"
@@ -11,30 +16,28 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import useMain from '@/modules/main/composables/useMain'
 
 export default {
     name: 'HomeViewPagination',
     setup(){
 
-      const { getActionMovies, setMutationIsPageLoadingStatus, getterMovies, getterIsPageLoading, getterPaginationPage  } = useMain()
+      const { getterMovies, getterIsPageLoading, getterPaginationPage, setMutationPaginationPage  } = useMain()
 
       const localPage = ref(getterPaginationPage.value); // Saca el valor de pagina del state
-    
 
-      // Watch
-      // Vigila cada cambio en la pagina para hacer la petición de la nueva pagina de peliculas
-      watch(() => localPage.value, (val) => {
-        setMutationIsPageLoadingStatus(true)
-        getActionMovies( val ) // Le mando el numero de pagina (val)
-      })
+      const changePage = ( pageNumber ) => {
+        setMutationPaginationPage(pageNumber); // El vueQuery se activa al detectar un cambio en la variable state de paginationPage. Es por eso que no se importa el composable useMovies()
+      }
 
       return {
         localPage,
 
         getterMovies,
-        getterIsPageLoading
+        getterIsPageLoading,
+
+        changePage
       }
 
     }

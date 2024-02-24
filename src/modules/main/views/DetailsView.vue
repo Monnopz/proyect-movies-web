@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useDisplay } from 'vuetify'
 
-import useMain from '@/modules/main/composables/useMain'
+import useMovie from '@/modules/main/composables/useMovie'
 
 
 export default {
@@ -84,11 +84,12 @@ export default {
     
         const { mdAndUp, xlAndUp, xxl } = useDisplay()
 
-        const { getActionMovieDetails, getterMovieDetails } = useMain()
-
-        onMounted(() => {
-            if(Object.keys(getterMovieDetails.value).length === 0) {
-                getActionMovieDetails(route.params.idMovie)
+        const { getterMovieDetails, isError } = useMovie(+route.params.idMovie)
+        
+        // Se observa si hay un error para sacar de la pantalla en caso positivo
+        watch( isError, () => {
+            if( isError.value ) {
+                router.replace('/')
             }
         })
 

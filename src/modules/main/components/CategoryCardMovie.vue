@@ -96,9 +96,6 @@ import { useRouter } from 'vue-router'
 
 import { useDisplay } from 'vuetify'
 
-import useMain from '@/modules/main/composables/useMain'
-
-
 export default {
     name: 'CategoryCardMovie',
     props: {
@@ -107,19 +104,15 @@ export default {
         default: []
       }
     },
-    setup(props){
+    setup(){
 
         const router = useRouter()
 
         const { mdAndUp, xlAndUp } = useDisplay()
-
-        const { getActionMovieDetails, setMutationIsPageLoadingStatus, getterIsPageLoading } = useMain ()
         
         //Metodos
         const moveToDetailsMovie = async (idMovie) => {
-          setMutationIsPageLoadingStatus(true)
-          const resp = await getActionMovieDetails(idMovie)
-          if(resp) router.push({ name: 'details-view', params: { idMovie } })
+          router.push({ name: 'details-view', params: { idMovie } })
         }
 
         return {

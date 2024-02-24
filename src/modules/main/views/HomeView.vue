@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 import { useDisplay } from 'vuetify'
 
-import useMain from '@/modules/main/composables/useMain'
+import useMovies from '@/modules/main/composables/useMovies'
 
 export default {
     name: 'HomeView',
@@ -30,15 +30,7 @@ export default {
 
       const { xlAndUp } = useDisplay()
 
-      const { getActionMovies, setMutationIsPageLoadingStatus, getterMovies, getterSelectedCategory } = useMain()
-
-      onMounted(() => {
-        if(Object.keys(getterMovies.value).length === 0) {
-          setMutationIsPageLoadingStatus(true)
-          getActionMovies(1)
-        }
-
-      })
+      const { getterMovies, getterSelectedCategory } = useMovies()
 
       return {
 

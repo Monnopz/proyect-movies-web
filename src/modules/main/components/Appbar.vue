@@ -11,7 +11,7 @@
             <TabsSelectMovieCategory :arrayGenresCategories="getterGenresCategories" />
         </template> -->
     </v-app-bar>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
         v-model="drawer"
         temporary
         color="#273043"
@@ -23,14 +23,12 @@
           :title="item.name"
           color="transparent"
         ></v-list-item>
-      </v-navigation-drawer>
+      </v-navigation-drawer> -->
 </template>
 
 <script>
-import { defineAsyncComponent, ref, watch, onMounted } from 'vue'
+import { defineAsyncComponent, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
-import useMain from '@/modules/main/composables/useMain'
 
 import { useDisplay } from 'vuetify'
 
@@ -47,8 +45,6 @@ export default {
     },
     setup() {
 
-        const { getGenresCategories, getterGenresCategories } = useMain()
-
         const { mdAndUp } = useDisplay()
 
         const router = useRouter();
@@ -56,19 +52,15 @@ export default {
         const drawer = ref(false)
         const group = ref(null)
 
-        onMounted(() => {
-          getGenresCategories()
-        })
-
         // Watch
         watch(mdAndUp, (val) => !val ? drawer.value = false : drawer.value = false )
 
         return {
             drawer,
             group,
-            getterGenresCategories,
+            // getterGenresCategories,
 
-            getGenresCategories,
+            // getGenresCategories,
 
             goToHomeView: () => {
                 if(router.currentRoute.value.name !== 'home-view') {

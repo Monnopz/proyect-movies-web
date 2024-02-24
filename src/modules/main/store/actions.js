@@ -1,6 +1,6 @@
-import tmdbAPI from "@/api/tmdbAPI";
+import tmdbAPI from '@/api/tmdbAPI';
 
-const getMoviesByPage = async( page = 1 ) => {
+const getMoviesByPage = async( page ) => {
     try {
         const { data } = await tmdbAPI.get('/movie/now_playing', {
             params: {
@@ -32,31 +32,34 @@ const getMoviesByPage = async( page = 1 ) => {
     }
 }
 
-export const getActionMovies = async ({ commit }, pageNumber) => {
+export const getActionMovies = async ({ commit }, pageNumber = 1) => {
 
     try {
 
+        commit('mutationIsPageLoadingStatus', true) 
+
         const data = await getMoviesByPage( pageNumber ); // Por default la pagina 1
+        // const data = queryTanStack( pageNumber ); // Por default la pagina 1
+
         commit('mutationMovies', data)
         commit('mutationPaginationPage', pageNumber) 
+
         commit('mutationIsPageLoadingStatus', false) 
 
-        return { ok: true, message: 'Peliculas obtenidas con exito' }
+        return data
 
     } catch (error) {
+
+        commit('mutationIsPageLoadingStatus', false)
+
         return error
 
     }
 }
 
-export const getActionMovieDetails = async ({ commit }, idMovie) => {
-
-    //TODO: Implementar VueQuery
-    //TODO: Conservar el numero de pagina en el store
-    //TODO: Arreglar la alineacion y el espaciado de texto
-
+const getMovieById = async( idMovie ) => {
     try {
-
+        
         const respMovieDetails = await tmdbAPI.get(`/movie/${idMovie}`)
         const respMoveCast = await tmdbAPI.get(`/movie/${idMovie}/credits`)
 
@@ -93,15 +96,39 @@ export const getActionMovieDetails = async ({ commit }, idMovie) => {
             }
             return profile
         })
-
-        commit('mutationMovieDetails', respMovieDetails.data) 
-        commit('mutationIsPageLoadingStatus', false) 
-
-        return { ok: true, message: 'Peliculas obtenidas con exito' }
+        
+        return respMovieDetails.data;
 
     } catch (error) {
+        throw { ok: false, message: 'Ha ocurrido un error' }
+    }
+}
+
+export const getActionMovieDetails = async ({ commit }, idMovie) => {
+
+    //TODO: Conservar el numero de pagina en el store
+    //TODO: Arreglar la alineacion y el espaciado de texto
+    //TODO: Solucionar que el loader aparece y no desaparece una vez que vue query hace una recarga del sitio
+    //TODO: Excepcion si el casting o infromacion de detalle de pelocula está vacio, marcarlo de otra forma
+    //TODO: VueQuery implementar cargas anticipadas
+
+    try {
+
+        commit('mutationIsPageLoadingStatus', true)
+
+        const data = await getMovieById( idMovie ); // Por default la pagina 1
         
-        return { ok: false, message: 'Ha ocurrido un error' }
+        commit('mutationMovieDetails', data) 
+
+        commit('mutationIsPageLoadingStatus', false) 
+
+        return data
+
+    } catch (error) {
+
+        commit('mutationIsPageLoadingStatus', false)
+
+        return error
 
     }
 }

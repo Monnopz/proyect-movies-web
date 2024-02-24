@@ -1,7 +1,7 @@
 <template>
     <v-tabs
       v-model="tab"
-      bg-color="#eff6ee"
+      bg-color="#fff"
       centered
       color="#87a5e8"
       center-active

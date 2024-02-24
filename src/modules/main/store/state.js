@@ -1,6 +1,6 @@
 export default () => ({
 
-    arrayBrandNewMovies: [],
+    arrayMovies: {},
     movieDetails: {},
     isPageLoading: true,
     arrayGenresCategories: [
@@ -9,6 +9,7 @@ export default () => ({
             name: 'En Cartelera'
         }
     ],
-    selectedCategory: 'En Cartelera'
+    selectedCategory: 'En Cartelera',
+    paginationPage: 1
 
 })

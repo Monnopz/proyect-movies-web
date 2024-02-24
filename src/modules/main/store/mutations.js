@@ -1,6 +1,6 @@
-export const mutationBrandNewMovies = (state, arrayBrandNewMovies) => {
+export const mutationMovies = (state, arrayMovies) => {
 
-    state.arrayBrandNewMovies = arrayBrandNewMovies
+    state.arrayMovies = arrayMovies
 
 }
 
@@ -19,5 +19,11 @@ export const mutationGenresCategories = (state, arrayGenresCategories) => {
 export const mutationIsPageLoadingStatus = (state, status) => {
 
     state.isPageLoading = status
+
+}
+
+export const mutationPaginationPage = (state, pageNumber) => {
+
+    state.paginationPage = pageNumber
 
 }

@@ -12,9 +12,9 @@
     >
         <v-img
           cover
-         :width="mdAndUp ? 180 : 220"
+          :width="mdAndUp ? 180 : 220"
           :src="castObjectActor.profile_path"
-          :lazy-src="castObjectActor.profile_path"
+          :lazy-src="require('@/assets/no-profile.png')"
           aspect-ratio="1"
           class="bg-grey-lighten-2"
           :alt="castObjectActor.name"

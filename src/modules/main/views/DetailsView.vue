@@ -1,16 +1,16 @@
 <template>
     <v-main>
         <v-container fluid>
-            <v-sheet color="#eff6ee" class="mx-8">
+            <v-sheet color="#fff" class="mx-8">
                 <v-row align="center" justify="space-between" class="mt-xxl-4 mt-xl-4 mt-lg-4">
                     <v-col cols="12" xxl="2" xl="2" lg="2" md="12" sm="12">
                         <v-img
                             cover
-                           :width="mdAndUp ? 230 : 270"
-                            :src="`https://image.tmdb.org/t/p/original${getterMovieDetails.poster_path}`"
-                            :lazy-src="`https://image.tmdb.org/t/p/original${getterMovieDetails.poster_path}`"
+                            :max-width="mdAndUp ? 230 : 270"
+                            :src="getterMovieDetails.poster_path"
+                            :lazy-src="require('@/assets/No-Image-Placeholder.svg')"
                             aspect-ratio="1"
-                            class="bg-grey-lighten-2 mx-auto"
+                            class="bg-grey-lighten-2 mx-auto rounded-img"
                             :alt="getterMovieDetails.title"
                         >
                             <template v-slot:placeholder>
@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useDisplay } from 'vuetify'
 
-import useMain from '@/modules/main/composables/useMain'
+import useMovie from '@/modules/main/composables/useMovie'
 
 
 export default {
@@ -84,11 +84,12 @@ export default {
     
         const { mdAndUp, xlAndUp, xxl } = useDisplay()
 
-        const { getActionMovieDetails, getterMovieDetails } = useMain()
-
-        onMounted(() => {
-            if(Object.keys(getterMovieDetails.value).length === 0) {
-                getActionMovieDetails(route.params.idMovie)
+        const { getterMovieDetails, isError } = useMovie(+route.params.idMovie)
+        
+        // Se observa si hay un error para sacar de la pantalla en caso positivo
+        watch( isError, () => {
+            if( isError.value ) {
+                router.replace('/')
             }
         })
 
@@ -115,5 +116,8 @@ export default {
 }
 .window-height {
     height: 285px !important;
+}
+.rounded-img {
+    border-radius: 9px !important;
 }
 </style>

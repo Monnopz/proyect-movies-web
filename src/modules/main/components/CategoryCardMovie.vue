@@ -1,9 +1,9 @@
 <template>
     <v-container fluid>
-        <v-sheet color="#eff6ee" class="mx-8">
-          <v-row v-if="mdAndUp" no-gutters align="center">
+        <v-sheet color="#fff" class="mx-0">
+          <!-- <v-row v-if="mdAndUp" no-gutters align="center">
             <slot name="categorytitle"></slot>
-          </v-row>
+          </v-row> -->
             <v-row align="center" justify="space-between">
               <v-col v-for="movie in arrayMovies" :key="movie.id" cols="12" xxl="2" xl="2" lg="3" md="4" sm="6">
                 <v-hover>
@@ -21,17 +21,18 @@
                       <template v-slot:loader="{ isActive }">
                         <v-progress-linear
                           :active="isActive"
-                          color="#eff6ee"
+                          color="#fff"
                           :height="4"
                           indeterminate
                         ></v-progress-linear>
                       </template>
+                      <!-- :src="require('@/assets/No-Image-Placeholder.svg')"
+                      :lazy-src="require('@/assets/No-Image-Placeholder.svg')" -->
                       <v-img
-                        cover
-                       :width="mdAndUp ? 230 : 270"
-                        :src="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`"
-                        :lazy-src="`https://image.tmdb.org/t/p/original${movie.backdrop_path}`"
-                        aspect-ratio="1"
+                        :max-height="mdAndUp ? 230 : 270"
+                        :src="movie.poster_path"
+                        :lazy-src="require('@/assets/No-Image-Placeholder.svg')"
+                        aspect-ratio="16/9"
                         class="bg-grey-lighten-2"
                         :alt="movie.title"
                       >
@@ -95,9 +96,6 @@ import { useRouter } from 'vue-router'
 
 import { useDisplay } from 'vuetify'
 
-import useMain from '@/modules/main/composables/useMain'
-
-
 export default {
     name: 'CategoryCardMovie',
     props: {
@@ -111,14 +109,10 @@ export default {
         const router = useRouter()
 
         const { mdAndUp, xlAndUp } = useDisplay()
-
-        const { getActionMovieDetails, setMutationIsPageLoadingStatus, getterIsPageLoading } = useMain ()
-
+        
         //Metodos
         const moveToDetailsMovie = async (idMovie) => {
-          setMutationIsPageLoadingStatus(true)
-          const resp = await getActionMovieDetails(idMovie)
-          if(resp) router.push({ name: 'details-view', params: { idMovie } })
+          router.push({ name: 'details-view', params: { idMovie } })
         }
 
         return {

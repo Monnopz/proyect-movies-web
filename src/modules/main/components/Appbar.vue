@@ -3,7 +3,7 @@
         <!-- <template v-if="mdAndUp" v-slot:prepend>
             <v-app-bar-nav-icon color="#eff6ee" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </template> -->
-        <v-app-bar-title class="appbarTitleColor"><v-icon icon="mdi-movie" class="mr-3 iconMovieColor"></v-icon><strong>Big Movie DB</strong></v-app-bar-title>
+        <v-app-bar-title class="appbarTitleColor"><v-btn @click="goToHomeView" :icon="$route.name !== 'home-view' ? 'mdi-arrow-left' : 'mdi-movie'" class="iconMovieColor mb-1" variant="plain"></v-btn><strong>Big Movie DB</strong></v-app-bar-title>
         <!-- <template v-if="(!mdAndUp && isHomeView)" v-slot:extension>
             <TabsSelectMovieCategory />
         </template> -->
@@ -11,7 +11,7 @@
             <TabsSelectMovieCategory :arrayGenresCategories="getterGenresCategories" />
         </template> -->
     </v-app-bar>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
         v-model="drawer"
         temporary
         color="#273043"
@@ -23,12 +23,12 @@
           :title="item.name"
           color="transparent"
         ></v-list-item>
-      </v-navigation-drawer>
+      </v-navigation-drawer> -->
 </template>
 
 <script>
-import { defineAsyncComponent, ref, watch, onMounted } from 'vue'
-import useMain from '@/modules/main/composables/useMain'
+import { defineAsyncComponent, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { useDisplay } from 'vuetify'
 
@@ -45,16 +45,12 @@ export default {
     },
     setup() {
 
-        const { getGenresCategories, getterGenresCategories } = useMain()
-
         const { mdAndUp } = useDisplay()
+
+        const router = useRouter();
 
         const drawer = ref(false)
         const group = ref(null)
-
-        onMounted(() => {
-          getGenresCategories()
-        })
 
         // Watch
         watch(mdAndUp, (val) => !val ? drawer.value = false : drawer.value = false )
@@ -62,9 +58,15 @@ export default {
         return {
             drawer,
             group,
-            getterGenresCategories,
+            // getterGenresCategories,
 
-            getGenresCategories,
+            // getGenresCategories,
+
+            goToHomeView: () => {
+                if(router.currentRoute.value.name !== 'home-view') {
+                    router.replace({ name: 'home-view' });
+                }
+            },
 
 
             // Breakpoints
@@ -78,9 +80,9 @@ export default {
 
 <style scoped>
 .appbarTitleColor {
-    color: #eff6ee;
+    color: #fff;
 }
 .iconMovieColor {
-    color: #eff6ee;
+    color: #fff;
 }
 </style>

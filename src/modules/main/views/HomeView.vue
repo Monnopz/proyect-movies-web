@@ -1,47 +1,40 @@
 <template>
   <v-main>
-      <CategoryCardMovie :arrayMovies="getterBrandNewMovies">
-        <template v-slot:categorytitle>
+      <CategoryCardMovie :arrayMovies="getterMovies.results">
+        <!-- <template v-slot:categorytitle>
           <v-alert density="comfortable" icon="mdi-video-plus-outline" prominent border="start" border-color="#273043" variant="tonal" color="#273043">
             <template v-slot:title>
               <span class="text-uppercase" :class="xlAndUp ? 'textTitleCardSizeXlAndUp' : 'textTitleCardSize'">{{getterSelectedCategory}}</span>
             </template>
           </v-alert>
-        </template>
+        </template> -->
       </CategoryCardMovie>
+      <HomeViewPagination />
   </v-main>
 </template>
 
 <script>
-import { defineAsyncComponent, onMounted } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
 import { useDisplay } from 'vuetify'
 
-import useMain from '@/modules/main/composables/useMain'
+import useMovies from '@/modules/main/composables/useMovies'
 
 export default {
     name: 'HomeView',
     components: {
         CategoryCardMovie: defineAsyncComponent(() => import('@/modules/main/components/CategoryCardMovie.vue')), //Cargas pequeñas en cache
+        HomeViewPagination: defineAsyncComponent(() => import('@/modules/main/components/HomeViewPagination.vue')) //Cargas pequeñas en cache
     },
     setup(){
 
       const { xlAndUp } = useDisplay()
 
-      const { getActionBrandNewMovies, setMutationIsPageLoadingStatus, getterBrandNewMovies, getterSelectedCategory } = useMain()
-
-      onMounted(() => {
-
-        if(getterBrandNewMovies.value.length === 0) {
-          setMutationIsPageLoadingStatus(true)
-          getActionBrandNewMovies()
-        }
-
-      })
+      const { getterMovies, getterSelectedCategory } = useMovies()
 
       return {
 
-        getterBrandNewMovies,
+        getterMovies,
         getterSelectedCategory,
         // Breakpoints
         xlAndUp

@@ -1,6 +1,6 @@
-export const getterBrandNewMovies = (state) => {
+export const getterMovies = (state) => {
 
-    return state.arrayBrandNewMovies
+    return state.arrayMovies
 
 }
 
@@ -25,5 +25,11 @@ export const getterGenresCategories = (state) => {
 export const getterSelectedCategory= (state) => {
 
     return state.selectedCategory
+
+}
+
+export const getterPaginationPage= (state) => {
+
+    return state.paginationPage
 
 }

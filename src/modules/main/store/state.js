@@ -2,7 +2,7 @@ export default () => ({
 
     arrayMovies: {},
     movieDetails: {},
-    isPageLoading: true,
+    isPageLoading: false,
     arrayGenresCategories: [
         {
             id: '1',

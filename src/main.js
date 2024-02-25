@@ -17,7 +17,7 @@ VueQueryPlugin.install(app, {
     queryClientConfig: {
         defaultOptions: {
             queries: {
-                gcTime: 1000 * 60 // Cuanto tiempo permanece la info en memoria
+                gcTime: 1000 * 60 * 5 // Cuanto tiempo permanece la info en memoria
             }
         }
     }

@@ -28,7 +28,7 @@
                         </v-img>
                     </v-col>
                     <v-col cols="12" xxl="10" xl="10" lg="10" md="12" sm="12">
-                        <p class="text-overline titleFontSize"><strong>Título: {{ getterMovieDetails.title }}</strong></p>
+                        <p class="text-overline titleFontSize"><strong>{{ getterMovieDetails.title }}</strong></p>
                         <p class="text-capitalize text-grey">{{ getterMovieDetails.original_title }}</p>
                         <v-row
                           align="center"

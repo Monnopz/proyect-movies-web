@@ -21,7 +21,7 @@ const getMoviesByPage = async( page ) => {
                 movie.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
             }
             else {
-                movie.poster_path = `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                movie.poster_path = `https://image.tmdb.org/t/p/w342${movie.poster_path}`
             }
             return movie
         })
@@ -36,21 +36,21 @@ export const getActionMovies = async ({ commit }, pageNumber = 1) => {
 
     try {
 
-        commit('mutationIsPageLoadingStatus', true) 
+        // commit('mutationIsPageLoadingStatus', true) 
 
         const data = await getMoviesByPage( pageNumber ); // Por default la pagina 1
         // const data = queryTanStack( pageNumber ); // Por default la pagina 1
 
-        commit('mutationMovies', data)
-        commit('mutationPaginationPage', pageNumber) 
+        //commit('mutationMovies', data)
+        // commit('mutationPaginationPage', pageNumber) 
 
-        commit('mutationIsPageLoadingStatus', false) 
+        // commit('mutationIsPageLoadingStatus', false) 
 
         return data
 
     } catch (error) {
 
-        commit('mutationIsPageLoadingStatus', false)
+        // commit('mutationIsPageLoadingStatus', false)
 
         return error
 
@@ -67,7 +67,7 @@ const getMovieById = async( idMovie ) => {
             respMovieDetails.data.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
         }
         else {
-            respMovieDetails.data.poster_path = `https://image.tmdb.org/t/p/original${respMovieDetails.data.poster_path}`
+            respMovieDetails.data.poster_path = `https://image.tmdb.org/t/p/w342${respMovieDetails.data.poster_path}`
         }
 
         respMovieDetails.data.cast = respMoveCast.data.cast.map( profile => {
@@ -86,13 +86,13 @@ const getMovieById = async( idMovie ) => {
                 profile.profile_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708563850/no-profile_hrxndg.png`
             }
             else {
-                profile.profile_path = `https://image.tmdb.org/t/p/original${profile.profile_path}`
+                profile.profile_path = `https://image.tmdb.org/t/p/w185${profile.profile_path}`
             }
             if( !profile.poster_path ) {
                 profile.poster_path = `https://res.cloudinary.com/flutter-app-camera/image/upload/v1708572427/No-Image-Placeholder_z28aiv.svg`
             }
             else {
-                profile.poster_path = `https://image.tmdb.org/t/p/original${profile.poster_path}`
+                profile.poster_path = `https://image.tmdb.org/t/p/w342${profile.poster_path}`
             }
             return profile
         })
@@ -106,27 +106,26 @@ const getMovieById = async( idMovie ) => {
 
 export const getActionMovieDetails = async ({ commit }, idMovie) => {
 
-    //TODO: Conservar el numero de pagina en el store
+    //TODO: Conservar el numero de pagina en el store (se puede lograr con query params de la url)
     //TODO: Arreglar la alineacion y el espaciado de texto
-    //TODO: Solucionar que el loader aparece y no desaparece una vez que vue query hace una recarga del sitio
     //TODO: Excepcion si el casting o infromacion de detalle de pelocula está vacio, marcarlo de otra forma
     //TODO: VueQuery implementar cargas anticipadas
 
     try {
 
-        commit('mutationIsPageLoadingStatus', true)
+        // commit('mutationIsPageLoadingStatus', true)
 
         const data = await getMovieById( idMovie ); // Por default la pagina 1
         
-        commit('mutationMovieDetails', data) 
+        // commit('mutationMovieDetails', data) 
 
-        commit('mutationIsPageLoadingStatus', false) 
+        // commit('mutationIsPageLoadingStatus', false) 
 
         return data
 
     } catch (error) {
 
-        commit('mutationIsPageLoadingStatus', false)
+        // commit('mutationIsPageLoadingStatus', false)
 
         return error
 

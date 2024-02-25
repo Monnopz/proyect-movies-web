@@ -1,4 +1,4 @@
-import { computed, toRef } from 'vue'
+import { computed, toRef, watch } from 'vue'
 import { useStore } from 'vuex'
 import { useQuery } from '@tanstack/vue-query'
 
@@ -17,11 +17,23 @@ const useMovies = () => {
 
     const pageNumber = toRef(() => store.state['mainModule']['paginationPage']); // Variable reactiva. Ayudará a detectar los cambios para el VueQuery
 
-    useQuery({
+    const { data, isLoading } = useQuery({
         queryKey: ['movies?page=', pageNumber ],
         queryFn: () => getMoviesByPage( store, pageNumber.value ),
         retry: false // Si falla la petición, no reintenta hacer la peticion y da el fallo en el momento
     })
+
+    // Escuchamos a data para saber si hay que setear el store
+    watch( data, (movies) => { // este movies es una nueva variable que se declara en este scope
+        if(movies) {
+            store.commit('mainModule/mutationMovies', movies)
+            //store.setClients( clientsWatch ) // Estas movies se setean asi (en vez de pasar el data directamente o retornar directamente el data para mantener los archivos independientes y el patron Adapter)
+        }
+    }, { immediate: true })
+
+    watch( isLoading, (charging) => { 
+        store.commit('mainModule/mutationIsPageLoadingStatus', charging)
+    }, { immediate: true })
 
     return {
 
